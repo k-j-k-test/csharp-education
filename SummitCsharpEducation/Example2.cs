@@ -11,6 +11,12 @@ namespace SummitCsharpEducation
     {
         public List<RiskRateTable> RiskRateList { get; set; } = new List<RiskRateTable>();
 
+        public Dictionary<string, List<RiskRateTable>> RiskRateDict { get; set; } = new Dictionary<string, List<RiskRateTable>>();
+
+        public string DirectoryPath { get; set; } = @"C:\example4";
+
+        
+
         public void ReadRiskRateTable()
         {
             StreamReader sr = new StreamReader(@"ExampleSource\RiskRates.txt", Encoding.Default);
@@ -51,7 +57,7 @@ namespace SummitCsharpEducation
         {
             // RiskRateName, F1, RiskRates[30]를 선택 (메서드 체이닝)
             List<string> strings = RiskRateList
-                .Where(r => r.F1 == 1)
+                .Where(r => r.F1 == 2)
                 .Select(r => $"{r.RiskRateName}, {r.F1}, {r.RiskRates[30]}")
                 .ToList();
 
@@ -60,8 +66,82 @@ namespace SummitCsharpEducation
             {
                 Console.WriteLine(str);
             }
+
+            // DirectoryPath 폴더에 텍스트로 출력
+            string filePath = Path.Combine(DirectoryPath, "RiskRateTable.txt");
+
+            using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
+            {
+                foreach (var str in strings)
+                {
+                    sw.WriteLine(str);
+                }
+            }
         }
 
+        public void FilterRiskRateTable()
+        {
+            // F1이 2인 것만 필터링
+            var filteredList = RiskRateList
+                .Where(r => r.F1 == 2)
+                .Where(r => r.RiskRates[30] < 0.0005)
+                .ToList();
+
+            // 콘솔에 출력
+            foreach (var riskRate in filteredList)
+            {
+                Console.WriteLine($"{riskRate.RiskRateName}, {riskRate.F1}, {riskRate.RiskRates[30]}");
+            }
+        }
+
+        public void SortRiskRateTable()
+        {
+            var sortedList = RiskRateList
+                .Where(r => r.F1 == 2)
+                .Where(r => r.RiskRates[30] < 0.0005)
+                .OrderBy(r => r.RiskRateName)
+                .ThenBy(r => r.RiskRates[30])
+                .ToList();
+
+            // 콘솔에 출력
+            foreach (var riskRate in sortedList)
+            {
+                Console.WriteLine($"{riskRate.RiskRateName}, {riskRate.F1}, {riskRate.RiskRates[30]}");
+            }
+        }
+
+        public void RiskRateListToDictionary()
+        {
+            // RiskRateList를 RiskRateDict 로변환 (Key: RiskRateName, Value: RiskRateTable)
+            foreach (var riskRate in RiskRateList)
+            {
+                if (!RiskRateDict.ContainsKey(riskRate.RiskRateName))
+                {
+                    RiskRateDict[riskRate.RiskRateName] = new List<RiskRateTable>();
+                }
+                RiskRateDict[riskRate.RiskRateName].Add(riskRate);
+            }
+
+            // 콘솔에 출력 (Key, Value.Count)
+            foreach (var kvp in RiskRateDict)
+            {
+                Console.WriteLine($"{kvp.Key}, {kvp.Value.Count}");
+            }
+        }
+
+        public void RiskRateListToDictionary2()
+        {
+            //GroupBy를 사용하여 RiskRateList를 RiskRateDict로 변환 (Key: RiskRateName, Value: List<RiskRateTable>)
+            RiskRateDict = RiskRateList
+                .GroupBy(r => r.RiskRateName)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            // 콘솔에 출력 (Key, Value.Count)
+            foreach (var kvp in RiskRateDict)
+            {
+                Console.WriteLine($"{kvp.Key}, {kvp.Value.Count}");
+            }
+        }
     }
 
     public class RiskRateTable
@@ -81,5 +161,4 @@ namespace SummitCsharpEducation
         public int Offset { get; set; }                 // 오프셋 값
         public double[] RiskRates { get; set; }         // 연령별 위험률 배열 (0~130세)
     }
-
 }
