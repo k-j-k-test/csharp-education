@@ -8,12 +8,12 @@ namespace SummitCsharpEducation
 {
     public class Example1
     {
-        public static void WriteHelloWorld()
+        public void WriteHelloWorld()
         {
             Console.WriteLine("Hello World");
         }
 
-        public static void DemonstrateBasicTypes()
+        public void DemonstrateBasicTypes()
         {
             Console.WriteLine("=== 기본 타입 사용 예시 ===\n");
 
@@ -62,7 +62,7 @@ namespace SummitCsharpEducation
             Console.WriteLine($"대문자 변환: {combined.ToUpper()}");
         }
 
-        public static void DemonstrateBasicTypeOperators()
+        public void DemonstrateBasicTypeOperators()
         {
             Console.WriteLine("=== 기본 타입 연산자 예시 ===\n");
 
@@ -144,7 +144,7 @@ namespace SummitCsharpEducation
 
         }
 
-        public static void DemonstrateImplicitTypeCasting()
+        public void DemonstrateImplicitTypeCasting()
         {
             // 정수에서 실수로의 암시적 형변환
             int number = 500;
@@ -152,7 +152,7 @@ namespace SummitCsharpEducation
             Console.WriteLine($"int 값 {number}을(를) double로 암시적 변환: {doubleValue}");
         }
 
-        public static void DemonstrateExplicitTypeCasting()
+        public void DemonstrateExplicitTypeCasting()
         {
             // 실수에서 정수로의 명시적 형변환 (소수점 이하 손실)
             double doubleValue = 9.78;
@@ -196,7 +196,7 @@ namespace SummitCsharpEducation
             Console.WriteLine($"시간 형식: {now.ToString("HH:mm:ss")}");
         }
 
-        public static void DemonstrateBoxingAndUnboxing()
+        public void DemonstrateBoxingAndUnboxing()
         {
             // 박싱(Boxing)과 언박싱(Unboxing) 예시를 보여주는 메서드
             // 값 타입을 참조 타입(object)으로 변환하거나, 그 반대로 변환하는 과정
@@ -233,7 +233,7 @@ namespace SummitCsharpEducation
             Console.WriteLine($"참조 타입 언박싱(as 연산자): {unboxedString}");
         }
 
-        public static void DemonstrateIntegerOverflow()
+        public void DemonstrateIntegerOverflow()
         {
             // int 타입의 최대값 2,147,483,647
             int maxValue = int.MaxValue;
@@ -250,7 +250,7 @@ namespace SummitCsharpEducation
             Console.WriteLine($"{a} * {b}의 결과(오버플로우): " + overflow2);
         }
 
-        public static void DemonstrateValueVsReference()
+        public void DemonstrateValueVsReference()
         {
             Console.WriteLine("=== 값 타입과 참조 타입의 차이 ===\n");
 
@@ -284,6 +284,177 @@ namespace SummitCsharpEducation
             person2.Name = "김철수";  // person2를 통해 변경
             Console.WriteLine($"  person2.Name 변경 후: person1.Name = {person1.Name}, person2.Name = {person2.Name}");  // person1도 변경됨
         }
+
+        public void DemonstrateArray()
+        {
+            // 배열 생성
+            int[] numbers = new int[5] { 1, 2, 3, 4, 5 };
+            string[] fruits = { "사과", "바나나", "오렌지" };
+
+            // 배열 요소 접근
+            Console.WriteLine($"numbers[0]: {numbers[0]}");
+            Console.WriteLine($"fruits[1]: {fruits[1]}");
+
+            // 배열 요소 수정
+            numbers[2] = 30;
+
+            // 배열 순회
+            Console.WriteLine("numbers 배열 순회:");
+            foreach (int num in numbers)
+            {
+                Console.Write($"{num} ");
+            }
+            Console.WriteLine();
+
+            // 다차원 배열
+            int[,] matrix = new int[2, 3] { { 1, 2, 3 }, { 4, 5, 6 } };
+            Console.WriteLine($"matrix[1,2]: {matrix[1, 2]}");
+
+            // 배열 길이
+            Console.WriteLine($"numbers 길이: {numbers.Length}");
+
+            // 배열 메서드
+            int index = Array.IndexOf(fruits, "바나나");
+            Console.WriteLine($"\"바나나\"의 인덱스: {index}");
+        }
+
+        public void DemonstrateList()
+        {
+            // List 생성
+            List<string> names = new List<string>();
+            names.Add("홍길동");
+            names.Add("김철수");
+            names.Add("이영희");
+
+            // 초기화와 함께 생성
+            List<int> scores = new List<int> { 95, 80, 75, 90 };
+
+            // 요소 접근
+            Console.WriteLine($"첫 번째 이름: {names[0]}");
+
+            // 요소 추가/삽입
+            names.Add("박지성");
+            names.Insert(1, "정민호");
+
+            // List 순회
+            Console.WriteLine("이름 목록:");
+            foreach (string name in names)
+            {
+                Console.WriteLine($"- {name}");
+            }
+
+            // List 검색
+            bool contains = names.Contains("이영희");
+            int index = names.IndexOf("박지성");
+            Console.WriteLine($"\"이영희\" 포함 여부: {contains}");
+            Console.WriteLine($"\"박지성\"의 인덱스: {index}");
+
+            // 기타 작업
+            int count = names.Count;
+            names.Clear();
+
+            Console.WriteLine($"이름 목록 개수: {count}, 비우기 후: {names.Count}");
+        }
+
+        public void DemonstrateHashSet()
+        {
+            // HashSet 생성
+            HashSet<string> uniqueNames = new HashSet<string>();
+            uniqueNames.Add("홍길동");
+            uniqueNames.Add("김철수");
+            uniqueNames.Add("이영희");
+
+            // 초기화와 함께 생성
+            HashSet<int> uniqueNumbers = new HashSet<int> { 1, 2, 3, 5, 8 };
+
+            // 중복 요소 추가 시도 (무시됨)
+            bool added = uniqueNames.Add("홍길동");
+            Console.WriteLine($"중복 이름 추가 성공?: {added}");
+
+            // 요소 포함 여부
+            bool contains = uniqueNames.Contains("김철수");
+            Console.WriteLine($"\"김철수\" 포함 여부: {contains}");
+
+            // HashSet 순회
+            Console.WriteLine("고유 이름 목록:");
+            foreach (string name in uniqueNames)
+            {
+                Console.WriteLine($"- {name}");
+            }
+
+            // 집합 연산
+            HashSet<int> setA = new HashSet<int> { 1, 2, 3, 4, 5 };
+            HashSet<int> setB = new HashSet<int> { 3, 4, 5, 6, 7 };
+
+            // 합집합
+            setA.UnionWith(setB);
+            Console.WriteLine("합집합 결과: " + string.Join(", ", setA));
+
+            // 교집합
+            HashSet<int> setC = new HashSet<int> { 1, 2, 3, 4, 5 };
+            setC.IntersectWith(setB);
+            Console.WriteLine("교집합 결과: " + string.Join(", ", setC));
+
+            // 개수
+            int count = uniqueNames.Count;
+            Console.WriteLine($"개수: {count}");
+        }
+
+        public void DemonstrateDictionary()
+        {
+            // Dictionary 생성
+            Dictionary<string, int> ages = new Dictionary<string, int>();
+            ages.Add("홍길동", 30);
+            ages.Add("김철수", 25);
+            ages.Add("이영희", 28);
+
+            // 초기화와 함께 생성
+            Dictionary<string, string> capitals = new Dictionary<string, string>
+            {
+                { "대한민국", "서울" },
+                { "일본", "도쿄" },
+                { "미국", "워싱턴 D.C." }
+            };
+
+            // 요소 접근 및 수정
+            int hongAge = ages["홍길동"];
+            ages["김철수"] = 26;
+            Console.WriteLine($"홍길동의 나이: {hongAge}");
+            Console.WriteLine($"김철수의 수정된 나이: {ages["김철수"]}");
+
+            // 안전하게 값 가져오기
+            if (ages.TryGetValue("박지성", out int parkAge))
+            {
+                Console.WriteLine($"박지성의 나이: {parkAge}");
+            }
+            else
+            {
+                Console.WriteLine("박지성의 정보가 없습니다.");
+            }
+
+            // 키 존재 여부 확인
+            bool containsKey = capitals.ContainsKey("중국");
+            Console.WriteLine($"\"중국\" 키 포함 여부: {containsKey}");
+
+            // Dictionary 순회
+            Console.WriteLine("나라별 수도:");
+            foreach (KeyValuePair<string, string> pair in capitals)
+            {
+                Console.WriteLine($"- {pair.Key}: {pair.Value}");
+            }
+
+            // 키와 값 컬렉션
+            Dictionary<string, int>.KeyCollection keys = ages.Keys;
+            Dictionary<string, int>.ValueCollection values = ages.Values;
+
+            Console.WriteLine("모든 이름: " + string.Join(", ", keys));
+            Console.WriteLine("모든 나이: " + string.Join(", ", values));
+
+            // 개수 및 비우기
+            int count = ages.Count;
+            ages.Clear();
+            Console.WriteLine($"원래 개수: {count}, 비우기 후: {ages.Count}");
+        }
     }
 
     class Person
@@ -315,7 +486,7 @@ namespace SummitCsharpEducation
 
     class Student : Person
     {
-        public string StudentID { get; set; }
+        public int Score { get; set; }
 
         public Student(string name, int age) : base(name, age)
         {

@@ -8,8 +8,12 @@ namespace SummitCsharpEducation
 {
     internal class Program
     {
+        // 시작: CTRL+F5
         static void Main(string[] args)
         {
+            Example1 example1 = new Example1();
+
+            example1.WriteHelloWorld();
         }
     }
 }
