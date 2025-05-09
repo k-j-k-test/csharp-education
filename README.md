@@ -8,8 +8,6 @@ C# 프로그래밍 언어의 기초부터 기능을 배울 수 있는 교육자�
 
 ## 교육 내용
 
-자세한 교육 내용은 [Wiki](../../wiki)에서 확인할 수 있습니다:
-
 - [Example 1: C# 기초](../../wiki/Example-1)
 - [Example 2: 객체지향 프로그래밍](../../wiki/Example-2)
 - [Example 3: 컬렉션과 LINQ](../../wiki/Example-3)
