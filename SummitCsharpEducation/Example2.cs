@@ -110,6 +110,30 @@ namespace SummitCsharpEducation
             }
         }
 
+        public void SortRiskRateTableBySum()
+        {
+            var sortedList = RiskRateList
+                .OrderByDescending(r => r.RiskRates.Sum())
+                .ToList();
+
+            // 콘솔에 출력
+            foreach (var riskRate in sortedList)
+            {
+                Console.WriteLine($"{riskRate.RiskRateName}, {riskRate.F1}, {riskRate.RiskRates.Sum()}");
+            }
+
+            // DirectoryPath 폴더에 텍스트로 출력
+            string filePath = Path.Combine(DirectoryPath, "RiskRateTableBySum.txt");
+            using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
+            {
+                foreach (var riskRate in sortedList)
+                {
+                    sw.WriteLine($"{riskRate.RiskRateName}, {riskRate.F1}, {riskRate.RiskRates.Sum()}");
+                }
+            }
+
+        }
+
         public void RiskRateListToDictionary()
         {
             // RiskRateList를 RiskRateDict 로변환 (Key: RiskRateName, Value: RiskRateTable)

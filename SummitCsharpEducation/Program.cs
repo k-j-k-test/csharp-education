@@ -14,7 +14,7 @@ namespace SummitCsharpEducation
             Example2 example2 = new Example2();
 
             example2.ReadRiskRateTable();
-            example2.SelectRiskRateTable();
+            example2.SortRiskRateTableBySum();
         }
     }
 }
